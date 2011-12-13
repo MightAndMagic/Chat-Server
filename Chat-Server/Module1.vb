@@ -43,7 +43,7 @@ Module Module1
                     Console.WriteLine("{0} um " & TimeOfDay & " Uhr", client.Client.RemoteEndPoint)
                     Console.ForegroundColor = ConsoleColor.White
                     Console.WriteLine(nachricht)
-                    client.GetStream.Write(bytes, 0, bytes.Length)
+                    client.GetStream.Write(bytes, 0, i)
                 Catch e As Exception
                     Console.ForegroundColor = ConsoleColor.Red
                     Console.WriteLine("Connection closed!")
