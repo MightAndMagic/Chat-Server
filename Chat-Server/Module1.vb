@@ -67,7 +67,7 @@ Module Module1
         End While
     End Sub
     Sub assynchron()
-	'ein sinnloser Kommentar
+	'ein sinnloser Kommentar mit mehr Wörtern
         Dim ips As Integer = 0
         Dim f As Integer
         Dim g As Integer
