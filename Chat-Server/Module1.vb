@@ -46,7 +46,7 @@ Module Module1
                     client.GetStream.Write(bytes, 0, i)
                 Catch e As Exception
                     Console.ForegroundColor = ConsoleColor.Red
-                    Console.WriteLine("Connection closed!")
+                    Console.WriteLine(vbCrLf & "Connection closed!")
                     listen()
                 End Try
             End While
