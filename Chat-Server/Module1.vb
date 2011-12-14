@@ -20,7 +20,7 @@ Module Module1
             server = New TcpListener(ip, port)
             server.Start()
             Console.ForegroundColor = ConsoleColor.Green
-            Console.WriteLine("Server created.")
+            Console.WriteLine("Server created on port {0}.", port)
         Catch e As Exception
             Console.ForegroundColor = ConsoleColor.Red
             Console.WriteLine("Socket exception: {0}", e)
