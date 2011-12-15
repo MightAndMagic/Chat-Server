@@ -28,12 +28,9 @@ Module Module1
         End Try
     End Sub
     Sub listen()
-
         Console.ForegroundColor = ConsoleColor.White
         Console.WriteLine("Listening for connections...")
         While True
-            'assynchron()
-
             Dim client As TcpClient = server.AcceptTcpClient
             Console.ForegroundColor = ConsoleColor.Green
             Console.WriteLine("Client {0} verbunden." & vbCrLf, client.Client.RemoteEndPoint)
@@ -65,30 +62,5 @@ Module Module1
                 End Try
             End While
         End While
-    End Sub
-    Sub assynchron()
-        Dim ips As Integer = 0
-        Dim f As Integer
-        Dim g As Integer
-        Dim h As Integer
-        Dim j As Integer
-        For f = 0 To 255
-            For g = 0 To 255
-                For h = 0 To 255
-                    For j = 0 To 255
-                        Try
-                            Dim thisip As IPAddress = IPAddress.Parse(f + "." + g + "." + h + "." + j)
-                            Dim thisserver = New TcpListener(thisip, port)
-                            thisserver.Start()
-                            Dim thisclient As TcpClient = thisserver.AcceptTcpClient()
-                            Adressen(ips) = thisip
-                            ips = ips + 1
-                        Catch e As Exception
-                        End Try
-
-                    Next
-                Next
-            Next
-        Next
     End Sub
 End Module
