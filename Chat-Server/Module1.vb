@@ -39,18 +39,18 @@ Module Module1
                     Dim stream As NetworkStream = client.GetStream()
                     Dim i As Int32
                     i = stream.Read(bytes, 0, bytes.Length)
-                    nachricht = System.Text.Encoding.ASCII.GetString(bytes, 0, i)
+                    nachricht = System.Text.Encoding.Default.GetString(bytes, 0, i)
                     Console.ForegroundColor = ConsoleColor.Cyan
                     Console.WriteLine("{0} um " & TimeOfDay & " Uhr", client.Client.RemoteEndPoint)
                     Console.ForegroundColor = ConsoleColor.White
                     Console.WriteLine(nachricht)
                     If nachricht = "/help" Then
                         Dim functions(1024) As Byte
-                        functions = System.Text.Encoding.ASCII.GetBytes("Hier erscheinen die spaeteren Befehle")
+                        functions = System.Text.Encoding.Default.GetBytes("Hier erscheinen die spaeteren Befehle")
                         client.GetStream.Write(functions, 0, functions.Length)
                     ElseIf nachricht = "/file" Then
                         Dim functions(1024) As Byte
-                        functions = System.Text.Encoding.ASCII.GetBytes("Spaeter Funktion zur Datenuebertragung")
+                        functions = System.Text.Encoding.Default.GetBytes("Spaeter Funktion zur Datenuebertragung")
                         client.GetStream.Write(functions, 0, functions.Length)
                     Else
                         client.GetStream.Write(bytes, 0, i)
