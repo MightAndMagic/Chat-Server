@@ -8,3 +8,13 @@ C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server\Chat-Server\obj\
 C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server\Chat-Server\obj\x86\Debug\Chat-Server.exe
 C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server\Chat-Server\obj\x86\Debug\Chat-Server.xml
 C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server\Chat-Server\obj\x86\Debug\Chat-Server.pdb
+C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server - Kopie\Chat-Server\obj\x86\Debug\Chat-Server.exe
+C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server - Kopie\Chat-Server\obj\x86\Debug\Chat-Server.xml
+C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server - Kopie\Chat-Server\obj\x86\Debug\Chat-Server.pdb
+C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server - Kopie\Chat-Server\bin\Debug\Chat-Server.exe
+C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server - Kopie\Chat-Server\bin\Debug\Chat-Server.pdb
+C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server - Kopie\Chat-Server\bin\Debug\Chat-Server.xml
+C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server - Kopie\Chat-Server\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server - Kopie\Chat-Server\obj\x86\Debug\Chat_Server.Resources.resources
+C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server - Kopie\Chat-Server\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Alle\Documents\Visual Studio 2010\Projects\Chat-Server - Kopie\Chat-Server\obj\x86\Debug\GenerateResource.write.1.tlog
