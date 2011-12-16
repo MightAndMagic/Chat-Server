@@ -38,11 +38,13 @@ Module Module1
         Console.WriteLine("Listening for connections...")
         While True
             Dim client As TcpClient = server.AcceptTcpClient
+			'Sequenz um Ip-Adressen zu speichern
             Dim ep As Net.IPEndPoint = CType(client.Client.RemoteEndPoint, Net.IPEndPoint)
             Dim ad As Integer = 0
             RohAdressen = Split(ep.ToString, ":", 2)
             Adressen(AdressenZaehler) = RohAdressen(0)
             AdressenZaehler = AdressenZaehler + 1
+			'Sequenz ende
             Nicks(AdressenZaehler) = ""
             Console.ForegroundColor = ConsoleColor.Green
             Console.WriteLine("Client {0} verbunden." & vbCrLf, client.Client.RemoteEndPoint)
