@@ -46,11 +46,11 @@ Module Module1
                     Console.WriteLine(nachricht)
                     If nachricht = "/help" Then
                         Dim functions(1024) As Byte
-                        functions = System.Text.Encoding.Default.GetBytes("Hier erscheinen die spaeteren Befehle")
+                        functions = System.Text.Encoding.Default.GetBytes("Hier erscheinen die späteren Befehle.")
                         client.GetStream.Write(functions, 0, functions.Length)
                     ElseIf nachricht = "/file" Then
                         Dim functions(1024) As Byte
-                        functions = System.Text.Encoding.Default.GetBytes("Spaeter Funktion zur Datenuebertragung")
+                        functions = System.Text.Encoding.Default.GetBytes("Später Funktion zur Datenübertragung.")
                         client.GetStream.Write(functions, 0, functions.Length)
                     Else
                         client.GetStream.Write(bytes, 0, i)
