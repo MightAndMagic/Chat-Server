@@ -12,7 +12,7 @@ Module Module1
     Dim ipAdressen(40) As IPAddress
     Dim Adressen(40) As IPEndPoint
     Dim Nicks(40) As String
-    Dim AdressenZaehler As Integer = 0
+    Dim clientID As Integer = 0
     Dim RohAdressen() As String
     Sub Main()
         Console.Title = "OpenSchoolChat - Server"
@@ -41,14 +41,14 @@ Module Module1
         listenThread.Start()
         'Sequenz um Ip-Adressen zu speichern
         Dim EndPoint As Net.IPEndPoint = CType(client.Client.RemoteEndPoint, Net.IPEndPoint)
-        Adressen(AdressenZaehler) = EndPoint
+        Adressen(clientID) = EndPoint
         RohAdressen = Split(EndPoint.ToString, ":", 2)
-        ipAdressen(AdressenZaehler) = IPAddress.Parse(RohAdressen(0))
-        AdressenZaehler = AdressenZaehler + 1
+        ipAdressen(clientID) = IPAddress.Parse(RohAdressen(0))
+        clientID = clientID + 1
         'Sequenz ende
-        Nicks(AdressenZaehler) = ""
+        Nicks(clientID) = ""
         Console.ForegroundColor = ConsoleColor.Green
-        Console.WriteLine("Client {0} verbunden." & vbCrLf, client.Client.RemoteEndPoint)
+        Console.WriteLine("Client {0} verbunden.", client.Client.RemoteEndPoint)
         While client.Connected
             Try
                 Dim stream As NetworkStream = client.GetStream()
@@ -56,10 +56,10 @@ Module Module1
                 i = stream.Read(bytes, 0, bytes.Length)
                 nachricht = Encoding.Default.GetString(bytes, 0, i)
                 Console.ForegroundColor = ConsoleColor.Cyan
-                If Nicks(AdressenZaehler) = "" Then
+                If Nicks(clientID) = "" Then
                     Console.WriteLine("{0} um " & TimeOfDay & " Uhr", client.Client.RemoteEndPoint)
                 Else
-                    Console.WriteLine("{0} um " & TimeOfDay & " Uhr", Nicks(AdressenZaehler))
+                    Console.WriteLine("{0} um " & TimeOfDay & " Uhr", Nicks(clientID))
                 End If
                 Console.ForegroundColor = ConsoleColor.White
                 Console.WriteLine(nachricht)
@@ -72,15 +72,15 @@ Module Module1
                         functions = Encoding.Default.GetBytes("Spaeter Funktion zur Datenuebertragung")
                         stream.Write(functions, 0, functions.Length)
                     ElseIf getFunction(nachricht) = "whoami" Then
-                        functions = Encoding.Default.GetBytes("whoami - You are " + Adressen(AdressenZaehler - 1).ToString)
+                        functions = Encoding.Default.GetBytes("whoami - You are " + Adressen(clientID - 1).ToString)
                         stream.Write(functions, 0, functions.Length)
                     ElseIf getFunction(nachricht) = "gettime" Then
                         functions = Encoding.Default.GetBytes("gettime - Today it's the " + Date.Now)
                         stream.Write(functions, 0, functions.Length)
                     ElseIf getFunction(nachricht) = "setnick" Then
                         Try
-                            Nicks(AdressenZaehler) = nachricht.Substring(9, nachricht.Length - 9)
-                            If Nicks(AdressenZaehler) <> "" Then
+                            Nicks(clientID) = nachricht.Substring(9, nachricht.Length - 9)
+                            If Nicks(clientID) <> "" Then
                                 functions = Encoding.Default.GetBytes("setnick - Your nickname is now " + nachricht.Substring(9, nachricht.Length - 9))
                             Else
                                 functions = Encoding.Default.GetBytes("Please enter a nickname after /setnick!")
@@ -96,7 +96,7 @@ Module Module1
                 End If
             Catch e As Exception
                 Console.ForegroundColor = ConsoleColor.Red
-                Console.WriteLine(vbCrLf & "{0} closed the connection.", Nicks(AdressenZaehler))
+                Console.WriteLine("{0} closed the connection.", client.Client.RemoteEndPoint)
             End Try
         End While
     End Sub
