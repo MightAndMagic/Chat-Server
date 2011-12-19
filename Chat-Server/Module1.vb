@@ -63,19 +63,19 @@ Module Module1
                     Console.WriteLine(nachricht)
                     If nachricht.Substring(0, 1) = "/" Then
                         Dim functions(1024) As Byte
-                        If nachricht = "/help" Then
+                        If getFunction(nachricht) = "help" Then
                             functions = Encoding.Default.GetBytes("/whoami - Your IP" + vbCrLf + "/gettime - Get date and time" + vbCrLf + "/setnick - Set your nickname")
                             stream.Write(functions, 0, functions.Length)
-                        ElseIf nachricht = "/file" Then
+                        ElseIf getFunction(nachricht) = "file" Then
                             functions = Encoding.Default.GetBytes("Spaeter Funktion zur Datenuebertragung")
                             stream.Write(functions, 0, functions.Length)
-                        ElseIf nachricht = "/whoami" Then
+                        ElseIf getFunction(nachricht) = "whoami" Then
                             functions = Encoding.Default.GetBytes("whoami - You are " + Adressen(AdressenZaehler - 1))
                             stream.Write(functions, 0, functions.Length)
-                        ElseIf nachricht = "/gettime" Then
+                        ElseIf getFunction(nachricht) = "gettime" Then
                             functions = Encoding.Default.GetBytes("gettime - Today it's the " + Date.Now)
                             stream.Write(functions, 0, functions.Length)
-                        ElseIf nachricht.Substring(0, 8) = "/setnick" Then
+                        ElseIf getFunction(nachricht) = "setnick" Then
                             Nicks(AdressenZaehler) = nachricht.Substring(9, nachricht.Length - 9)
                             functions = Encoding.Default.GetBytes("setnick - Your nickname is now " + nachricht.Substring(9, nachricht.Length - 9))
                             stream.Write(functions, 0, functions.Length)
@@ -92,4 +92,24 @@ Module Module1
             End While
         End While
     End Sub
+    Function getFunction(ByVal nachricht) As String
+        Try
+            If nachricht.Substring(1, 4) = "help" Then
+                Return "help"
+            ElseIf nachricht.Substring(1, 4) = "file" Then
+                Return "file"
+            ElseIf nachricht.Substring(1, 6) = "whoami" Then
+                Return "whoami"
+            ElseIf nachricht.Substring(1, 7) = "gettime" Then
+                Return "gettime"
+            ElseIf nachricht.Substring(1, 7) = "setnick" Then
+                Return "setnick"
+            Else
+                Return "noFunction"
+            End If
+        Catch ex As Exception
+            Return "noFunction"
+        End Try
+        Return "noFunction"
+    End Function
 End Module
