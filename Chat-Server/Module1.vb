@@ -33,7 +33,6 @@ Module Module1
         End Try
     End Sub
     Sub listen()
-
         Console.ForegroundColor = ConsoleColor.White
         Console.WriteLine("Listening for connections...")
         While True
@@ -53,7 +52,7 @@ Module Module1
                     Dim stream As NetworkStream = client.GetStream()
                     Dim i As Int32
                     i = stream.Read(bytes, 0, bytes.Length)
-                    nachricht = System.Text.Encoding.ASCII.GetString(bytes, 0, i)
+                    nachricht = Encoding.Default.GetString(bytes, 0, i)
                     Console.ForegroundColor = ConsoleColor.Cyan
                     If Nicks(AdressenZaehler) = "" Then
                         Console.WriteLine("{0} um " & TimeOfDay & " Uhr", client.Client.RemoteEndPoint)
@@ -65,32 +64,31 @@ Module Module1
                     If nachricht.Substring(0, 1) = "/" Then
                         If nachricht.Substring(1, 4) = "help" Then
                             Dim functions(1024) As Byte
-                            functions = System.Text.Encoding.ASCII.GetBytes("/whoami - Your IP")
-                            client.GetStream.Write(functions, 0, functions.Length)
-                            functions = System.Text.Encoding.ASCII.GetBytes("/gettime - Get date and time")
-                            client.GetStream.Write(functions, 0, functions.Length)
+                            functions = Encoding.Default.GetBytes("/whoami - Your IP")
+                            stream.Write(functions, 0, functions.Length)
+                            functions = Encoding.Default.GetBytes("/gettime - Get date and time")
+                            stream.Write(functions, 0, functions.Length)
                         ElseIf nachricht.Substring(1, 4) = "file" Then
                             Dim functions(1024) As Byte
-                            functions = System.Text.Encoding.ASCII.GetBytes("Spaeter Funktion zur Datenuebertragung")
-                            client.GetStream.Write(functions, 0, functions.Length)
+                            functions = Encoding.Default.GetBytes("Spaeter Funktion zur Datenuebertragung")
+                            stream.Write(functions, 0, functions.Length)
                         ElseIf nachricht.Substring(1, 6) = "whoami" Then
                             Dim functions(1024) As Byte
-                            functions = System.Text.Encoding.ASCII.GetBytes("whoami - You are " + Adressen(AdressenZaehler - 1))
-                            client.GetStream.Write(functions, 0, functions.Length)
+                            functions = Encoding.Default.GetBytes("whoami - You are " + Adressen(AdressenZaehler - 1))
+                            stream.Write(functions, 0, functions.Length)
                         ElseIf nachricht.Substring(1, 7) = "gettime" Then
                             Dim functions(1024) As Byte
-                            functions = System.Text.Encoding.ASCII.GetBytes("gettime - Today it's the " + Date.Now)
-                            client.GetStream.Write(functions, 0, functions.Length)
+                            functions = Encoding.Default.GetBytes("gettime - Today it's the " + Date.Now)
+                            stream.Write(functions, 0, functions.Length)
                         ElseIf nachricht.Substring(1, 7) = "setnick" Then
                             Nicks(AdressenZaehler) = nachricht.Substring(9, nachricht.Length - 9)
                             Dim functions(1024) As Byte
-                            functions = System.Text.Encoding.ASCII.GetBytes("setnick - Your nickname is now " + nachricht.Substring(9, nachricht.Length - 9))
-                            client.GetStream.Write(functions, 0, functions.Length)
+                            functions = Encoding.Default.GetBytes("setnick - Your nickname is now " + nachricht.Substring(9, nachricht.Length - 9))
+                            stream.Write(functions, 0, functions.Length)
                         Else
-                            client.GetStream.Write(bytes, 0, i)
+                            stream.Write(bytes, 0, i)
                         End If
                     End If
-
                 Catch e As Exception
                     Console.ForegroundColor = ConsoleColor.Red
                     Console.WriteLine(vbCrLf & "Connection closed!")
