@@ -62,31 +62,26 @@ Module Module1
                     Console.ForegroundColor = ConsoleColor.White
                     Console.WriteLine(nachricht)
                     If nachricht.Substring(0, 1) = "/" Then
-                        If nachricht.Substring(1, 4) = "help" Then
-                            Dim functions(1024) As Byte
-                            functions = Encoding.Default.GetBytes("/whoami - Your IP")
+                        Dim functions(1024) As Byte
+                        If nachricht = "/help" Then
+                            functions = Encoding.Default.GetBytes("/whoami - Your IP" + vbCrLf + "/gettime - Get date and time" + vbCrLf + "/setnick - Set your nickname")
                             stream.Write(functions, 0, functions.Length)
-                            functions = Encoding.Default.GetBytes("/gettime - Get date and time")
-                            stream.Write(functions, 0, functions.Length)
-                        ElseIf nachricht.Substring(1, 4) = "file" Then
-                            Dim functions(1024) As Byte
+                        ElseIf nachricht = "/file" Then
                             functions = Encoding.Default.GetBytes("Spaeter Funktion zur Datenuebertragung")
                             stream.Write(functions, 0, functions.Length)
-                        ElseIf nachricht.Substring(1, 6) = "whoami" Then
-                            Dim functions(1024) As Byte
+                        ElseIf nachricht = "/whoami" Then
                             functions = Encoding.Default.GetBytes("whoami - You are " + Adressen(AdressenZaehler - 1))
                             stream.Write(functions, 0, functions.Length)
-                        ElseIf nachricht.Substring(1, 7) = "gettime" Then
-                            Dim functions(1024) As Byte
+                        ElseIf nachricht = "/gettime" Then
                             functions = Encoding.Default.GetBytes("gettime - Today it's the " + Date.Now)
                             stream.Write(functions, 0, functions.Length)
-                        ElseIf nachricht.Substring(1, 7) = "setnick" Then
+                        ElseIf nachricht.Substring(0, 8) = "/setnick" Then
                             Nicks(AdressenZaehler) = nachricht.Substring(9, nachricht.Length - 9)
-                            Dim functions(1024) As Byte
                             functions = Encoding.Default.GetBytes("setnick - Your nickname is now " + nachricht.Substring(9, nachricht.Length - 9))
                             stream.Write(functions, 0, functions.Length)
                         Else
-                            stream.Write(bytes, 0, i)
+                            functions = Encoding.Default.GetBytes("This is not a valid command. See /help for further information.")
+                            stream.Write(functions, 0, functions.Length)
                         End If
                     End If
                 Catch e As Exception
@@ -97,5 +92,4 @@ Module Module1
             End While
         End While
     End Sub
-
 End Module
