@@ -72,7 +72,7 @@ Module Module1
                         functions = Encoding.Default.GetBytes("Spaeter Funktion zur Datenuebertragung")
                         stream.Write(functions, 0, functions.Length)
                     ElseIf getFunction(nachricht) = "whoami" Then
-                        functions = Encoding.Default.GetBytes("whoami - You are " + Adressen(clientID - 1).ToString)
+                        functions = Encoding.Default.GetBytes("whoami - You are " + client.Client.RemoteEndPoint.ToString)
                         stream.Write(functions, 0, functions.Length)
                     ElseIf getFunction(nachricht) = "gettime" Then
                         functions = Encoding.Default.GetBytes("gettime - Today it's the " + Date.Now)
