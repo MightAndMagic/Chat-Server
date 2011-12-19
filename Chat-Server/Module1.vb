@@ -76,8 +76,16 @@ Module Module1
                             functions = Encoding.Default.GetBytes("gettime - Today it's the " + Date.Now)
                             stream.Write(functions, 0, functions.Length)
                         ElseIf getFunction(nachricht) = "setnick" Then
-                            Nicks(AdressenZaehler) = nachricht.Substring(9, nachricht.Length - 9)
-                            functions = Encoding.Default.GetBytes("setnick - Your nickname is now " + nachricht.Substring(9, nachricht.Length - 9))
+                            Try
+                                Nicks(AdressenZaehler) = nachricht.Substring(9, nachricht.Length - 9)
+                                If Nicks(AdressenZaehler) <> "" Then
+                                    functions = Encoding.Default.GetBytes("setnick - Your nickname is now " + nachricht.Substring(9, nachricht.Length - 9))
+                                Else
+                                    functions = Encoding.Default.GetBytes("Please enter a nickname after /setnick!")
+                                End If
+                            Catch ex As Exception
+                                functions = Encoding.Default.GetBytes("Please enter a nickname after /setnick!")
+                            End Try
                             stream.Write(functions, 0, functions.Length)
                         Else
                             functions = Encoding.Default.GetBytes("This is not a valid command. See /help for further information.")
