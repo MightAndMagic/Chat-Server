@@ -37,6 +37,8 @@ Module Module1
         Console.WriteLine("Listening for connections...")
         While True
             Dim client As TcpClient = server.AcceptTcpClient
+            Dim thread As New Threading.Thread(AddressOf listen)
+            thread.Start()
 			'Sequenz um Ip-Adressen zu speichern
             Dim ep As Net.IPEndPoint = CType(client.Client.RemoteEndPoint, Net.IPEndPoint)
             Dim ad As Integer = 0
