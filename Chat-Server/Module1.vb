@@ -7,7 +7,6 @@ Module Module1
     Dim ip As IPAddress = IPAddress.Parse("127.0.0.1")
     Dim port As Integer = 27590
     Dim server As TcpListener = Nothing
-    Dim bytes(1024) As Byte
     Dim nachricht As String = Nothing
     Dim ipAdressen(40) As IPAddress
     Dim Adressen(40) As IPEndPoint
@@ -39,8 +38,6 @@ Module Module1
     Sub listen()
         clients(clientID) = server.AcceptTcpClient()
         Dim localID As Integer = clientID
-        Dim listenThread As New Threading.Thread(AddressOf listen)
-        listenThread.Start()
         'Sequenz um Ip-Adressen zu speichern
         Dim EndPoint As Net.IPEndPoint = CType(clients(localID).Client.RemoteEndPoint, Net.IPEndPoint)
         Adressen(localID) = EndPoint
@@ -49,8 +46,11 @@ Module Module1
         Nicks(localID) = ""
         clientID = clientID + 1
         'Sequenz ende
+        Dim listenThread As New Threading.Thread(AddressOf listen)
+        listenThread.Start()
         Console.ForegroundColor = ConsoleColor.Green
         Console.WriteLine("Client {0} verbunden.", clients(localID).Client.RemoteEndPoint)
+        Dim bytes(1024) As Byte
         While clients(localID).Connected
             Try
                 Dim stream As NetworkStream = clients(localID).GetStream()
@@ -96,6 +96,7 @@ Module Module1
                         stream.Write(functions, 0, functions.Length)
                     End If
                 End If
+                send(bytes, i, localID)
             Catch e As Exception
                 Console.ForegroundColor = ConsoleColor.Red
                 Console.WriteLine("{0} closed the connection.", clients(localID).Client.RemoteEndPoint)
@@ -122,4 +123,10 @@ Module Module1
         End Try
         Return "noFunction"
     End Function
+    Sub send(ByVal bytes, ByVal bytesLength, ByVal client)
+        For zähler As Integer = 0 To clientID - 1
+            Dim stream As NetworkStream = clients(zähler).GetStream()
+            stream.Write(bytes, 0, bytesLength)
+        Next
+    End Sub
 End Module
