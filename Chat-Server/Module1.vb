@@ -95,8 +95,9 @@ Module Module1
                         functions = Encoding.Default.GetBytes("This is not a valid command. See /help for further information.")
                         stream.Write(functions, 0, functions.Length)
                     End If
+                Else
+                    send(bytes, i, localID)
                 End If
-                send(bytes, i, localID)
             Catch e As Exception
                 Console.ForegroundColor = ConsoleColor.Red
                 If Nicks(localID) = "" Then
