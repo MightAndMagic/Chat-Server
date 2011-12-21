@@ -58,10 +58,10 @@ Module Module1
                 i = stream.Read(bytes, 0, bytes.Length)
                 nachricht = Encoding.Default.GetString(bytes, 0, i)
                 Console.ForegroundColor = ConsoleColor.Cyan
-                If Nicks(clientID) = "" Then
+                If Nicks(localID) = "" Then
                     Console.WriteLine("{0} um " & TimeOfDay & " Uhr", clients(localID).Client.RemoteEndPoint)
                 Else
-                    Console.WriteLine("{0} um " & TimeOfDay & " Uhr", Nicks(clientID))
+                    Console.WriteLine("{0} um " & TimeOfDay & " Uhr", Nicks(localID))
                 End If
                 Console.ForegroundColor = ConsoleColor.White
                 Console.WriteLine(nachricht)
@@ -83,7 +83,7 @@ Module Module1
                         Try
                             Nicks(localID) = nachricht.Substring(9, nachricht.Length - 9)
                             If Nicks(localID) <> "" Then
-                                functions = Encoding.Default.GetBytes("setnick - Your nickname is now " + nachricht.Substring(9, nachricht.Length - 9))
+                                functions = Encoding.Default.GetBytes("setnick - Your nickname is now " + Nicks(localID))
                             Else
                                 functions = Encoding.Default.GetBytes("Please enter a nickname after /setnick!")
                             End If
