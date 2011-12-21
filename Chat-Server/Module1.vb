@@ -99,7 +99,11 @@ Module Module1
                 send(bytes, i, localID)
             Catch e As Exception
                 Console.ForegroundColor = ConsoleColor.Red
-                Console.WriteLine("{0} closed the connection.", clients(localID).Client.RemoteEndPoint)
+                If Nicks(localID) = "" Then
+                    Console.WriteLine("{0} closed the connection.", clients(localID).Client.RemoteEndPoint)
+                Else
+                    Console.WriteLine("{0} closed the connection.", Nicks(localID))
+                End If
             End Try
         End While
     End Sub
@@ -125,8 +129,10 @@ Module Module1
     End Function
     Sub send(ByVal bytes, ByVal bytesLength, ByVal client)
         For zähler As Integer = 0 To clientID - 1
-            Dim stream As NetworkStream = clients(zähler).GetStream()
-            stream.Write(bytes, 0, bytesLength)
+            If clients(zähler).Connected Then
+                Dim stream As NetworkStream = clients(zähler).GetStream()
+                stream.Write(bytes, 0, bytesLength)
+            End If
         Next
     End Sub
 End Module
