@@ -4,7 +4,6 @@ Imports System.Text
 Imports System.IO
 Imports System
 Module Module1
-    Dim ip As IPAddress = IPAddress.Parse("127.0.0.1")
     Dim port As Integer = 27590
     Dim server As TcpListener = Nothing
     Dim nachricht As String = Nothing
@@ -18,13 +17,14 @@ Module Module1
         Console.Title = "OpenSchoolChat - Server"
         Console.ForegroundColor = ConsoleColor.White
         Console.WriteLine("OpenSchoolChat - Server | Alpha, Build 4")
-        initialisieren(ip, port)
+        initialisieren(port)
         listen()
         Console.ReadLine()
     End Sub
-    Sub initialisieren(ByVal ip, ByVal port)
+    Sub initialisieren(ByVal port)
         Try
-            server = New TcpListener(ip, port)
+            server = New TcpListener(IPAddress.Any, port)
+            server.AllowNatTraversal(True)
             server.Start()
             Console.ForegroundColor = ConsoleColor.Green
             Console.WriteLine("Server created on port {0}.", port)
